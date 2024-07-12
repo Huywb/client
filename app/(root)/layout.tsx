@@ -22,15 +22,15 @@ export default function RootLayout({
     <ClerkProvider>
     <html lang="en">
       <body className={`${inter.className} bg-slate-800 text-white ` }>
-        <main className="flex flex-row  justify-between m-auto gap-10 ">
-          <div className=" flex " >
+        <main className="flex flex-row  justify-between  gap-10 ">
+          <div className=" flex sticky " >
           <LeftSiderBar></LeftSiderBar>
           </div>
-          <div className="items-center w-[60%] flex-1 h-[1200px] ">
+          <div className="items-center w-[50%] m-auto  h-[1200px] ">
             <Top></Top> 
             {children}
           </div>
-          <div className=" flex ">
+          <div className=" flex sticky right-0 ">
           <RightSiderBar></RightSiderBar>
           </div>
         </main>
