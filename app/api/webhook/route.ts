@@ -1,3 +1,4 @@
+"use client"
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
@@ -48,30 +49,46 @@ export async function POST(req: Request) {
     })
   }
 
-  // Do something with the payload
-  // For this guide, you simply log the payload to the console
-  const { id } = evt.data;
-  const eventType = evt.type;
-  
-  if(eventType === 'user.created' || eventType === 'user.updated'){
-    const {id,first_name,last_name,image_url,email_addresses,username} = evt?.data
+  const eventType = evt?.type;
+
+  if (eventType === "user.created" || eventType === "user.updated") {
+    const { id, first_name, last_name, image_url, email_addresses, username } =
+      evt?.data;
+
     try {
-        await createOrUpdateUser(id,first_name,last_name,image_url,email_addresses,username)
-        return new Response("User is created or updated",{status:200})
-    } catch (error) {
-        console.log('Create or updating wrong',error)
-        return new Response("Error occrured",{status:500})
+      await createOrUpdateUser(
+        id,
+        first_name,
+        last_name,
+        image_url,
+        email_addresses,
+        username
+      );
+
+      return new Response("User is created or updated", {
+        status: 200,
+      });
+    } catch (err) {
+      console.error("Error creating or updating user:", err);
+      return new Response("Error occured", {
+        status: 500,
+      });
     }
   }
 
-  if(eventType === 'user.deleted'){
+  if (eventType === "user.deleted") {
     try {
-        const {id} = evt?.data
-        await deleteUser(id? id: '')
-        return new Response("User is deleted",{status:200})
-    } catch (error) {
-        console.log("Cannot delete",error)
-        return new Response("Something wrong",{status:500})
+      const { id } = evt?.data;
+      await deleteUser(id);
+
+      return new Response("User is deleted", {
+        status: 200,
+      });
+    } catch (err) {
+      console.error("Error deleting user:", err);
+      return new Response("Error occured", {
+        status: 500,
+      });
     }
   }
 }
