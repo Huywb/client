@@ -1,17 +1,19 @@
-import mongoose from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 
 let isConnected = false
 
 export const connectDB =async ()=>{
     mongoose.set('strictQuery',true)
     if(isConnected){
-        console.log("Cannot connect DB") 
+        console.log('Mongoose already connected')
         return
     }
     try {
         const connect = await mongoose.connect(process.env.MONGOOSE_URL?  process.env.MONGOOSE_URL : ``,{
-            dbName:"VSocial",
-        })
+            dbName: "VSocial",
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        } as ConnectOptions)
         if(connect){
         isConnected = true
         console.log("MongooseDB connected")

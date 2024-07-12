@@ -8,7 +8,6 @@ import { usePathname } from 'next/navigation'
 
 const Menu = () => {    
     const pathName = usePathname()
-    console.log(pathName)
   return (
     <Box pt={2} gap={1} display='flex' flexDirection='column' paddingX={4}>
         {MenuList.map((item,index)=>(

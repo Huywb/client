@@ -4,6 +4,7 @@ import { connectDB } from "../mongoose/connetDB";
 export const createOrUpdateUser = async(id: string, first_name: string | null, last_name: string | null, image_url: string, email_addresses: unknown, username: string | null)=>{
     try {
         await connectDB()
+        console.log('123')
         const user = await User.findOneAndUpdate(
             {clerkId: id},
             {
@@ -18,9 +19,8 @@ export const createOrUpdateUser = async(id: string, first_name: string | null, l
             {upsert:true,new:true}
         )
         await user.save()
-        return user
     } catch (error) {
-        console.log(error)
+        console.log('error',error)
     }
 }
 
@@ -29,6 +29,6 @@ export const deleteUser = async(id:string)=>{
         await connectDB()
         await User.findOneAndDelete({clerkId: id})
     } catch (error) {
-        console.log(error)
+        console.log('delete error',error)
     }
 }
