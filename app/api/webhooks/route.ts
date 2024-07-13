@@ -1,7 +1,7 @@
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { WebhookEvent } from '@clerk/nextjs/server'
-import { createOrUpdateUser, deleteUser } from '@/libs/actions/user'
+import { createOrUpdateUser, deleteUser } from '@/libs/actions/user.js'
 
 
 export async function POST(req: Request) {
@@ -64,7 +64,7 @@ export async function POST(req: Request) {
         email_addresses,
         username
       );
-      console.log('123')
+      console.log
       return new Response("User is created or updated", {
         status: 200,
       });
